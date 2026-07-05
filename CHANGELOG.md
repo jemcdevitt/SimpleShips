@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1
+
+* Fixed issue where shift-right clicking to mount the helm resulted in unexpected behaviour
+
 ## 1.1.0
 
 * Reworking PersistentData information used

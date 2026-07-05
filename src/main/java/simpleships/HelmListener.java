@@ -130,6 +130,14 @@ public class HelmListener implements Listener {
 	}
 
 	static public void onEntityClicked(Player player, ArmorStand stand, PlayerInteractAtEntityEvent event) {
+
+		//sneak right clicking on a helm results in ship materializing but player not
+		//actually mounting.  This should prevent that
+		if( player.isSneaking()) {
+			event.setCancelled(true);
+			return;
+		}
+		
 		String shipHelmId = stand.getPersistentDataContainer().get(Constants.SHIP_HELM_ID_KEY, PersistentDataType.STRING);
 		if( shipHelmId == null ) {
 			return;

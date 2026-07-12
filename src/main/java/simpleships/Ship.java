@@ -53,6 +53,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BlockDataMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.BoundingBox;
@@ -425,6 +426,11 @@ public class Ship {
 			} else if( isBlockTouchingWater(remove)) {
 				mat = Material.WATER;
 			}
+
+			if( remove.getBlock().getState() instanceof InventoryHolder inventory) {
+				LOG(0,"Clearing inventory from block");
+				inventory.getInventory().clear();
+			}
 			remove.getBlock().setType(mat, false);
 		}
 
@@ -532,8 +538,8 @@ public class Ship {
 					rotateMultipleFacing(mf, shipYawAtAssemble, finalYaw);
 				}
 			}
-			block.setBlockData(data, true);
-			block.getState().update(true, true);
+			block.setBlockData(data, false);
+			block.getState().update(true, false);
 			restoredBlocks.add(new BlockAndState(block,state,mb.inventoryContents()));
 		}
 
@@ -545,8 +551,8 @@ public class Ship {
 			block.setType(Material.AIR,false);
 			block.getState().update(true, true);
 				
-			block.setBlockData(refresh, true);
-			block.getState().update(true, true);
+			block.setBlockData(refresh, false);
+			block.getState().update(true, false);
 
 			if( restoredBlock.state() != null ) {
 				BlockState state = restoredBlock.state();
@@ -703,33 +709,11 @@ public class Ship {
 
 		if( block.getState() instanceof InventoryHolder inventory) {
 			inventoryContents = BlockSupport.cloneContents(inventory.getInventory().getContents());
-			LOG(0,"Found and inventory holder : %s", type);
+			LOG(0,"Found an inventory holder : %s", type);
 		}
 
 		
-		if( displayData instanceof Chest chest ) {
-			LOG(0,"Found a chest");
-			if( chest.getType() == Chest.Type.SINGLE ) {
-				addDoubleBlockDisplay(world, block, displayData, startLoc, offset, 1.0f, inventoryContents);
-			}
-			else if( chest.getType() == Chest.Type.RIGHT ) {
-				addDoubleBlockDisplay(world, block, displayData, startLoc, offset, 2.1f, inventoryContents);
-			}
-			else {
-				//no display block for left side of chest but do need to restore it
-				shipBlocks.add(new MaterializedBlock(null, displayData, state, offset, inventoryContents));
-			}
-			return true;
-		}
-		if( displayData instanceof Bed bed) {
-			if( bed.getPart() == Bed.Part.FOOT ) {
-				shipBlocks.add(new MaterializedBlock(null, displayData, null, offset, inventoryContents));
-			} else {
-				addDoubleBlockDisplay(world, block, displayData, startLoc, offset, 1.0f, inventoryContents);
-			}
-			return true;
-		}
-		
+		/*
 		if( Tag.ALL_SIGNS.isTagged(type)) {
 			//ALL_HANGING_SIGNS doesn't compile though it is in the docs
 			//if(Tag.ALL_HANGING_SIGNS.isTaggedType(type))
@@ -739,20 +723,22 @@ public class Ship {
 				addSignDisplay(world, block, displayData, startLoc, offset);
 		 	return true;
 		}
+		*/
 		
 		if( Tag.BANNERS.isTagged(type)) {
 		 	addBannerDisplay(world, block, displayData, startLoc, offset);
 		 	return true;
 		}
+		
 		if( BlockSupport.isHead(type)) {
 			addPlayerHeadDisplay(world, block, displayData, startLoc, offset, orient);
 			return true;
 		}
-
+		
 
 		if( block.getState() instanceof Shelf ) {
 		 	LOG(0,"Found a shelf");
-			addShelfDisplay(world, block, displayData, startLoc, offset, inventoryContents, orient);
+			addShelfDisplay(world, block, displayData, startLoc, offset, inventoryContents, orient, shipYawAtAssemble);
 			return true;
 		}
 
@@ -1089,11 +1075,12 @@ public class Ship {
 		shipBlocks.add(mb);
 	}
 
-	private void addShelfDisplay(World world, Block block, BlockData displayData, Location startLoc, Vector3f offset, ItemStack[] inventoryContents, Quaternionf shipRot) {
+	private void addShelfDisplay(World world, Block block, BlockData displayData, Location startLoc, Vector3f offset, ItemStack[] inventoryContents, Quaternionf shipRot, float shipYaw) {
 		BlockDisplay display = null;
 		BlockFace face = null;
 		BlockState state = block.getState();
 		Vector3f itemOffset = new Vector3f(0,0,0);
+
 
 		if( displayData instanceof Directional directional) {
 			face = directional.getFacing();
@@ -1119,30 +1106,41 @@ public class Ship {
 		
 		if( inventoryContents != null ) {
 			int slot = -1;
+			
 			for(ItemStack item : inventoryContents ) {
 				//I think these go in order, left to right.
 				if( item != null ) {
-					Vector3f translation = new Vector3f(offset.x - (itemOffset.x *  (14 * Constants.ONE_64)) + (itemOffset.z * (slot * (20 * Constants.ONE_64))),
-																				offset.y - SHIP_VERTICAL_OFFSET + 0.5f,
-																				offset.z - (itemOffset.z * (14 * Constants.ONE_64)) - (itemOffset.x * (slot * (20 * Constants.ONE_64))));
-					LOG(0,"Adding item %s to slot %d translation (%f,%f,%f)  off(%f,%f,%f)",
-																item.getType(),
-																slot,
-																translation.x, translation.y, translation.z,
-																itemOffset.x, itemOffset.y, itemOffset.z);
+					Vector3f translation = new Vector3f(offset.x - (itemOffset.x *  (16 * Constants.ONE_64)) + (itemOffset.z * (slot * (20 * Constants.ONE_64))),
+																							offset.y - SHIP_VERTICAL_OFFSET + 0.5f,
+																							offset.z - (itemOffset.z * (16 * Constants.ONE_64)) - (itemOffset.x * (slot * (20 * Constants.ONE_64))));
+					
+					float itemRotation = -UtilFuncs.getYawDegrees(face);
+					float scaleAmount = 16;
+					
+					if( item.getType().isBlock()) {
+						scaleAmount = 32;
+						if( !BlockSupport.isShelf(item.getType()) && item.getType().createBlockData() instanceof Directional directional) {
+							
+							itemRotation = UtilFuncs.wrapDegrees(itemRotation+180.0f);
 
-					float itemRotation = 0;
-					if( item.getType().isBlock())
-						itemRotation = -itemYaw;
-					else
-						itemRotation = itemYaw;
+						}
+					}
+					
+					LOG(0,"Adding item %s (is block:%s)  to slot %d translation (%f,%f,%f)  off(%f,%f,%f), rot: %f, scale: %f",
+							item.getType(), item.getType().isBlock(),
+							slot,
+							translation.x, translation.y, translation.z,
+							itemOffset.x, itemOffset.y, itemOffset.z,
+							itemRotation, scaleAmount);
+
+
 					
 					Matrix4f xt = new Matrix4f()
 					 	.identity()
 					 	.rotate(shipRot)
 					 	.translate(translation)
 						.rotateY((float)Math.toRadians(itemRotation))
-					 	.scale(16 * Constants.ONE_64);
+					 	.scale(scaleAmount * Constants.ONE_64);
 				 
 
 					ItemStack matItem = item.clone();
@@ -1150,6 +1148,7 @@ public class Ship {
 					itemDisplay.setItemStack(matItem);
 					itemDisplay.setPersistent(false);
 					itemDisplay.setGravity(false);
+					itemDisplay.setItemDisplayTransform(ItemDisplay.ItemDisplayTransform.FIXED);
 					itemDisplay.setTransformationMatrix(new Matrix4f(xt));
 					itemDisplay.setInterpolationDuration(Constants.BD_LERP_DURATION);
 					itemDisplay.setInterpolationDelay(-1);

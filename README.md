@@ -113,8 +113,14 @@ SimpleShips focuses on atmosphere, exploration, creativity, and multiplayer adve
 
 ### Tested Versions
 
+### SimpleShips-1.+
 * Paper 1.21.11
 * Paper 26.2.1
+* Java 21
+
+### SimpleShipsPlugin-26.2.*
+* Paper 26.2
+* Java 25
 
 SimpleShips uses supported Paper APIs only and does not rely on NMS or internal server classes.
 

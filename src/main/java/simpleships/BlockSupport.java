@@ -20,6 +20,7 @@ public class BlockSupport {
 																							 {{
 																									 add(Material.ARMOR_STAND);
 																									 add(Material.BARREL);
+																									 add(Material.BELL);
 																									 add(Material.BOOKSHELF);
 																									 add(Material.CAMPFIRE);
 																									 add(Material.CARTOGRAPHY_TABLE);
@@ -217,7 +218,7 @@ public class BlockSupport {
 																									add(Material.POTTED_DEAD_BUSH);
 																									add(Material.POTTED_FERN);
 																									add(Material.POTTED_FLOWERING_AZALEA_BUSH);
-																									//add(Material.POTTED_GOLDEN_DANDELION);  //It is in the docs
+																									add(Material.POTTED_GOLDEN_DANDELION);  
 																									add(Material.POTTED_JUNGLE_SAPLING);
 																									add(Material.POTTED_LILY_OF_THE_VALLEY);
 																									add(Material.POTTED_MANGROVE_PROPAGULE);
@@ -320,6 +321,9 @@ public class BlockSupport {
 			mat == Material.BAMBOO_WALL_SIGN ||
 			mat == Material.CRIMSON_WALL_SIGN ||
 			mat == Material.WARPED_WALL_SIGN;
+	}
+	public static final boolean isShelf(Material mat) {
+		return Tag.WOODEN_SHELVES.isTagged(mat);
 	}
 
 	public static final Material getPlankForSign(Material sign) {

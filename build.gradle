@@ -1,7 +1,7 @@
 import java.text.SimpleDateFormat
 
 plugins {
-    id 'com.gradleup.shadow' version '8.3.6'
+    id 'com.gradleup.shadow' version '9.5.0'
     id 'java'
 }
 
@@ -14,7 +14,7 @@ static def getTime() {
 }
 
 // Set version to version property if supplied
-String shortVersion = "1.1.1"
+String shortVersion = "26.2-1.0"
 if (hasProperty('ver')) {
     if (ver.charAt(0) == "v") {
         shortVersion = ver.substring(1).toUpperCase()
@@ -34,8 +34,7 @@ if (shortVersion == null || shortVersion == "") {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    toolchain.languageVersion.set(JavaLanguageVersion.of(25))
 }
 
 repositories {
@@ -62,9 +61,9 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
+    compileOnly 'io.papermc.paper:paper-api:26.2.build.+'
     implementation 'io.papermc:paperlib:1.0.8'
-    testImplementation 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
+    testImplementation 'io.papermc.paper:paper-api:26.2.build.+'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.13.1'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.13.0'
 }

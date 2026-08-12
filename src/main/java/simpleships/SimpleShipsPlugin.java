@@ -208,8 +208,8 @@ public class SimpleShipsPlugin extends JavaPlugin {
 
 	static public void LOG(int level, String msg, Object... args) {
 		try {
-			if( level == 0 ) {
-				if( configuration.debugOn)
+			if( level == 0 || level == 10) {
+				if( configuration.debugOn || level == 10)
 					logger.info(String.format(msg, args));
 			}	else {
 				logger.warning(String.format(msg, args));
@@ -222,8 +222,8 @@ public class SimpleShipsPlugin extends JavaPlugin {
 	static public void LOG(int level, Player player, String msg, Object... args) {
 		try {
 			String toSend = String.format(msg, args);
-			if( level == 0 ) {
-				if( configuration.debugOn) {
+			if( level == 0 || level == 10 ) {
+				if( configuration.debugOn || level == 10) {
 					logger.info(toSend);
 					player.sendMessage(toSend);
 				}
@@ -253,6 +253,7 @@ public class SimpleShipsPlugin extends JavaPlugin {
 			configuration.maxXWidth = cfg.getConfigurationSection("ship-size").getInt("max-ship-x-width", Configuration.MAX_SHIP_X_WIDTH_DEFAULT);
 			configuration.maxZWidth = cfg.getConfigurationSection("ship-size").getInt("max-ship-z-width", Configuration.MAX_SHIP_Z_WIDTH_DEFAULT);
 			configuration.maxHeight = cfg.getConfigurationSection("ship-size").getInt("max-ship-height", Configuration.MAX_SHIP_HEIGHT_DEFAULT);
+			BlockSupport.initAllowedBlocksFromConfig(cfg);
 		}	
 		configuration.showInfo(logger);
 	}

@@ -8,16 +8,27 @@ package simpleships;
  */
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
 import java.util.Set;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.Slab;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 
+import static simpleships.SimpleShipsPlugin.LOG;
+
 public class BlockSupport {
-	private static Set<Material> allowedBlocks = new HashSet<>()
+	private static Set<Material> allowedBlocks = null;
+	
+	private static Set<Material> allowedBlocks_X = new HashSet<>()
 																							 {{
+																									 add(Material.BARRIER);
+																									 add(Material.RED_SANDSTONE_STAIRS);
 																									 add(Material.ARMOR_STAND);
 																									 add(Material.BARREL);
 																									 add(Material.BELL);
@@ -240,6 +251,43 @@ public class BlockSupport {
 																								}};
 
 
+	public static final void initAllowedBlocksFromConfig(FileConfiguration cfg) {
+		if( allowedBlocks != null ) {
+			LOG(0,"Block list already initiatlized");
+			return;
+		}
+		allowedBlocks = new HashSet<>();
+		List<String> materialNames = cfg.getStringList("allowed-blocks");
+
+		if(!materialNames.isEmpty()) {
+			for(String name : materialNames) {
+				if( name.startsWith("#") ) {
+					LOG(0,"Loading tag %s", name);
+					Set<Material> tagMaterials = getTagMaterials(name);
+					if( tagMaterials == null) {
+						LOG(1,"Didn't find the tag for %s", name);
+						continue;
+					}
+					for(Material tagMat : tagMaterials ) {
+						if( !tagMat.isBlock() || tagMat.isAir()) {
+							continue;
+						}
+						LOG(0,"Adding %s to allowed blocks list", tagMat);
+						allowedBlocks.add(tagMat);
+					}
+				} else {
+					Material mat = Material.matchMaterial(name);
+					if( mat == null ) {
+						LOG(1,"Didn't find material for %s", name);
+					} else {
+						LOG(0,"Adding %s to allowed blocks list", mat);
+						allowedBlocks.add(mat);
+					}
+				}
+			}
+		}
+		LOG(10, "Loaded %d allowed blocks", allowedBlocks.size());
+	}
 
 	public static final boolean isBlockAllowedForHelm(Material mat) {
 		if( mat == null )
@@ -258,11 +306,11 @@ public class BlockSupport {
 	}
 	public static final boolean isBlockAllowed(Material mat) {
 		return
-			allowedBlocks.contains(mat) ||
-			glass.contains(mat) ||
-			glassPanes.contains(mat) ||
-			concrete.contains(mat) ||
-			pottedPlants.contains(mat);
+			allowedBlocks.contains(mat);
+			// || glass.contains(mat) 
+			// || glassPanes.contains(mat) 
+			// || concrete.contains(mat) 
+			// || pottedPlants.contains(mat);
 	}
 
 	//apparently there isn't a Tag.WALL_BANNERS
@@ -373,4 +421,14 @@ public class BlockSupport {
 		return false;
 	}
 
+
+	static private Set<Material> getTagMaterials(String arg) {
+		String tagName = arg.substring(1).toLowerCase(Locale.ROOT);
+		Tag<Material> tag = Bukkit.getTag(Tag.REGISTRY_BLOCKS, NamespacedKey.minecraft(tagName), Material.class);
+		if( tag == null ) {
+			LOG(1, "Unknown material tag: %s", tag);
+			return null;
+		}
+		return tag.getValues();
+	}
 }

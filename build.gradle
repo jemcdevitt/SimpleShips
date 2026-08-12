@@ -14,7 +14,7 @@ static def getTime() {
 }
 
 // Set version to version property if supplied
-String shortVersion = "26.2-1.0"
+String shortVersion = "26.2-1.1"
 if (hasProperty('ver')) {
     if (ver.charAt(0) == "v") {
         shortVersion = ver.substring(1).toUpperCase()

@@ -139,7 +139,7 @@ SimpleShips uses supported Paper APIs only and does not rely on NMS or internal 
 
 The configuration file used to set boundaries for assembled ships and to list the blocks that a ship is allowed to use.  
 
-<span style="color:red">Note</span> - if running a previous version of the plugin, remove the existing config.yml file so a new one gets generated that will include a default block list that matches what was previously hardcoded.
+**Note** - if running a previous version of the plugin, remove the existing config.yml file so a new one gets generated that will include a default block list that matches what was previously hardcoded.
 
 ```yaml
 debug: false

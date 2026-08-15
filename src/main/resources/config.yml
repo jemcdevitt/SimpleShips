@@ -5,10 +5,10 @@ debug: false
 #this defines the max ship parameters
 #A value of -1 indicates no limit
 ship-size:
-  max-ship-blocks:  500
-  max-ship-x-width: 32
-  max-ship-height:  16
-  max-ship-z-width: 32
+  max-ship-blocks:  -1
+  max-ship-x-width: -1
+  max-ship-height:  -1
+  max-ship-z-width: -1
 
 allowed-blocks:
   - "#ANVIL"

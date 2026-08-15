@@ -147,13 +147,49 @@ ship-size:
   max-ship-x-width: 32
   max-ship-height:  16
   max-ship-z-width: 32
+  
+allowed-blocks:
+  - "#ANVIL"
+  - "#ALL_SIGNS"
+  - "#BAMBOO_BLOCKS"
+  - "#BANNERS"
+  - "#BARS"
+  - "#BEDS"
+  - "#BUTTONS"
+  - "#CANDLES"
+  - "#CHAINS"
+  - "#COPPER"
+  - "#DOORS"
+  - "#FENCES"
+  - "#FENCE_GATES"
+  - "#FLOWER_POTS"
+  - "#LANTERNS"
+  - "#LIGHTNING_RODS"
+  - "#LOGS"
+  - "#PLANKS"
+  - "#WOODEN_STAIRS"
+  - "#TERRACOTTA"
+  - "#WOODEN_SHELVES"
+  - "#WOODEN_SLABS"
+  - "#WOODEN_TRAPDOORS"
+  - "#WOOL"
+  - "#WOOL_CARPETS"
+  - BARRIER
+  - RED_SANDSTONE_STAIRS
+  - ARMOR_STAND
+  - BARREL
+  - BELL
+  - BOOKSHELF
+  - CAMPFIRE
+  - CARTOGRAPHY_TABLE
+  
 ```
 
-By default, ships are limited to 500 blocks and the dimensions listed above.
-
-Using a value of `-1` for any of these settings removes the limit.
-
 The `debug` parameter will cause extra messages to be generated in the server logs.
+
+This shows an example of how to limit the ship to just 500 blocks total, and max blocks by dimension.  The default uses -1 for all of these so there is no limit.
+
+The `allowed-blocks` defines what blocks are permitted on the ship.  This list may use a tag reference such as `#PLANKS` which would include all wood plank variants by default or list each block separately. Make sure to wrap a tag reference in double quotes so the leading # does not get interpreted as a comment marker.
 
 ---
 

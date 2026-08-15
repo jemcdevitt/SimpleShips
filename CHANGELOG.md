@@ -1,5 +1,9 @@
 # Changelog
 
+## 26.2-1.1
+
+* Moved allowed block details out of code into the config file.
+
 ## 26.2-1.0
 
 * First release for working with Minecraft 26.2 servers

@@ -24,113 +24,6 @@ import static simpleships.SimpleShipsPlugin.LOG;
 
 public class BlockSupport {
 	private static Set<Material> allowedBlocks = null;
-	
-	private static Set<Material> allowedBlocks_X = new HashSet<>()
-																							 {{
-																									 add(Material.BARRIER);
-																									 add(Material.RED_SANDSTONE_STAIRS);
-																									 add(Material.ARMOR_STAND);
-																									 add(Material.BARREL);
-																									 add(Material.BELL);
-																									 add(Material.BOOKSHELF);
-																									 add(Material.CAMPFIRE);
-																									 add(Material.CARTOGRAPHY_TABLE);
-																									 add(Material.CAULDRON);
-																									 add(Material.CHEST);
-																									 add(Material.CHISELED_BOOKSHELF);
-																									 add(Material.COMPOSTER);
-																									 add(Material.COPPER_CHEST);
-																									 add(Material.CRAFTER);
-																									 add(Material.CRAFTING_TABLE);
-																									 add(Material.CRAFTING_TABLE);
-																									 add(Material.CREEPER_HEAD);
-																									 add(Material.CREEPER_WALL_HEAD);
-																									 add(Material.DECORATED_POT);
-																									 add(Material.DISPENSER);
-																									 add(Material.DRAGON_HEAD);
-																									 add(Material.DRAGON_WALL_HEAD);
-																									 add(Material.DROPPER);
-																									 add(Material.EMERALD);
-																									 add(Material.ENCHANTING_TABLE);
-																									 add(Material.ENDER_CHEST);
-																									 add(Material.END_ROD);
-																									 add(Material.FLETCHING_TABLE);
-																									 add(Material.FURNACE);
-																									 add(Material.HAY_BLOCK);
-																									 add(Material.HOPPER);
-																									 add(Material.ITEM_FRAME);
-																									 add(Material.GLOW_ITEM_FRAME);
-																									 add(Material.JACK_O_LANTERN);
-																									 add(Material.JIGSAW);
-																									 add(Material.LADDER);
-																									 add(Material.LECTERN);
-																									 add(Material.LIGHT);
-																									 add(Material.LOOM);
-																									 add(Material.NOTE_BLOCK);
-																									 add(Material.OBSERVER);
-																									 add(Material.OBSIDIAN);
-																									 add(Material.OCHRE_FROGLIGHT);
-																									 add(Material.PAINTING);
-																									 add(Material.PEARLESCENT_FROGLIGHT);
-																									 add(Material.PIGLIN_HEAD);
-																									 add(Material.PIGLIN_WALL_HEAD);
-																									 add(Material.PLAYER_HEAD);
-																									 add(Material.PLAYER_WALL_HEAD);
-																									 add(Material.REDSTONE_BLOCK);
-																									 add(Material.REDSTONE_LAMP);
-																									 add(Material.REDSTONE_TORCH);
-																									 add(Material.REDSTONE_WALL_TORCH);
-																									 add(Material.RED_CONCRETE);
-																									 add(Material.SCAFFOLDING);
-																									 add(Material.SEA_LANTERN);
-																									 add(Material.SKELETON_SKULL);
-																									 add(Material.SKELETON_WALL_SKULL);
-																									 add(Material.SMITHING_TABLE);
-																									 add(Material.SMOKER);
-																									 add(Material.SOUL_CAMPFIRE);
-																									 add(Material.STONECUTTER);
-																									 add(Material.STRING);
-																									 add(Material.TORCH);
-																									 add(Material.TRAPPED_CHEST);
-																									 add(Material.TRIPWIRE);
-																									 add(Material.VERDANT_FROGLIGHT);
-																									 add(Material.WALL_TORCH);
-																									 add(Material.WATER_CAULDRON);
-																									 add(Material.WHITE_CONCRETE);
-																									 add(Material.WITHER_SKELETON_SKULL);
-																									 add(Material.WITHER_SKELETON_WALL_SKULL);
-																									 add(Material.ZOMBIE_HEAD);
-																									 add(Material.ZOMBIE_WALL_HEAD);
-																									 
-
-																									 addAll(Tag.ANVIL.getValues());
-																									 addAll(Tag.ALL_SIGNS.getValues());
-																									 addAll(Tag.BAMBOO_BLOCKS.getValues());
-																									 addAll(Tag.BANNERS.getValues());
-																									 addAll(Tag.BARS.getValues());
-																									 addAll(Tag.BEDS.getValues());
-																									 addAll(Tag.BUTTONS.getValues());
-																									 addAll(Tag.CANDLES.getValues());
-																									 addAll(Tag.CHAINS.getValues());
-																									 addAll(Tag.COPPER.getValues());
-																									 addAll(Tag.DOORS.getValues());
-																									 addAll(Tag.FENCES.getValues());
-																									 addAll(Tag.FENCE_GATES.getValues());
-																									 addAll(Tag.FLOWER_POTS.getValues());
-																									 addAll(Tag.LANTERNS.getValues());
-																									 addAll(Tag.LIGHTNING_RODS.getValues());
-																									 addAll(Tag.LOGS.getValues());
-																									 addAll(Tag.PLANKS.getValues());
-																									 addAll(Tag.WOODEN_STAIRS.getValues());
-																									 addAll(Tag.TERRACOTTA.getValues());
-																									 addAll(Tag.WOODEN_SHELVES.getValues());
-																									 addAll(Tag.WOODEN_SLABS.getValues());
-																									 addAll(Tag.WOODEN_TRAPDOORS.getValues());
-																									 addAll(Tag.WOOL.getValues());
-																									 addAll(Tag.WOOL_CARPETS.getValues());
-																											 
-																								 }};
-
 
 
 	//limited set of blocks on which a helm can be placed
@@ -141,7 +34,7 @@ public class BlockSupport {
 																									 addAll(Tag.PLANKS.getValues());
 																									 addAll(Tag.WOODEN_STAIRS.getValues());
 																									 addAll(Tag.TERRACOTTA.getValues());
-																									 addAll(Tag.WOODEN_SLABS.getValues());
+																									 addAll(Tag.WOODEN_SLABS.getValues());  //only the top slab
 																									 addAll(Tag.WOODEN_TRAPDOORS.getValues());
 																									 addAll(Tag.WOOL.getValues());
 																											 
@@ -307,10 +200,6 @@ public class BlockSupport {
 	public static final boolean isBlockAllowed(Material mat) {
 		return
 			allowedBlocks.contains(mat);
-			// || glass.contains(mat) 
-			// || glassPanes.contains(mat) 
-			// || concrete.contains(mat) 
-			// || pottedPlants.contains(mat);
 	}
 
 	//apparently there isn't a Tag.WALL_BANNERS

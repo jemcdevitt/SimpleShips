@@ -13,6 +13,8 @@ import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.joml.Vector3f;
 
+import static simpleships.SimpleShipsPlugin.LOG;
+
 /**
  * This allows for regular blocks, such as {@link:org.bukkit.block.data.type.Light} blocks
  * (or any other direct blocks) to be part of the ship and moved.  Unlike the {@link:org.bukkit.entity.BlockDisplay}
@@ -23,22 +25,35 @@ import org.joml.Vector3f;
  * with any light source on the ships.
  */
 public class MovingBlock {
-	Location location = null;
-	Vector3f offset = new Vector3f();
-	BlockData data;
-	Material blockType;
+	private Location location = null;
+	private final Vector3f offset;
+	private final BlockData data;
+	private final Material blockType;
+	private final float yawAtAssemble;
 
-	public MovingBlock(Location helm, Vector3f offset, BlockData data, Material blockType) {
+	public MovingBlock(Location helm, Vector3f offset, BlockData data, Material blockType, float yawAtAssemble) {
 		location = helm.clone();  
-		this.offset.set(offset);
+		this.offset = new Vector3f(offset);
 		this.data = data.clone();
 		this.blockType = blockType;
-		moveTo(helm);
+		this.yawAtAssemble = yawAtAssemble;
+		moveTo(helm, yawAtAssemble);
 	}
-	void moveTo(Location l) {
-		location.setX(l.getX() + offset.x);
-		location.setY(l.getY() + offset.y);
-		location.setZ(l.getZ() + offset.z);
+	void moveTo(Location l, float shipYaw) {
+		float deltaYaw = UtilFuncs.wrapDegrees(shipYaw - yawAtAssemble);
+		
+		float yaw = (float)Math.toRadians(deltaYaw);
+		float x = offset.x * (float)Math.cos(yaw) - offset.z * (float)Math.sin(yaw);
+		float z = offset.x * (float)Math.sin(yaw) + offset.z * (float)Math.cos(yaw);
+
+		location = l.clone().add(x, offset.y, z);
+		// LOG(10,"MovingBlock: %s Offset(%f,%f,%f), Loc(%f,%f,%f), L(%f,%f,%f), shipYaw: %f, yaw: %f, x: %f, z: %f",
+		// 		blockType.toString(),
+		// 		offset.x, offset.y, offset.z, 
+		// 		location.getX(), location.getY(), location.getZ(),
+		// 		l.getX(), l.getY(), l.getZ(),
+		// 		shipYaw, yaw, x, z);
+		
 	}
 	void render() {
 		location.getBlock().setBlockData(data);

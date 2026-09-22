@@ -1,5 +1,9 @@
 # Changelog
 
+## 26.2-1.2
+
+* Light blocks were not being moved correctly, updated MovingBlock to handle the rotation of the ship during movements.
+
 ## 26.2-1.1
 
 * Moved allowed block details out of code into the config file.

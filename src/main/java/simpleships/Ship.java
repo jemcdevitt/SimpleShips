@@ -305,7 +305,7 @@ public class Ship {
 		World world = loc.getWorld();
 		for(MovingBlock ls : shipLights ) {
 			ls.remove();
-			ls.moveTo(loc);
+			ls.moveTo(loc, shipYaw);
 			ls.render();
 		}
 
@@ -767,7 +767,7 @@ public class Ship {
 					levelled.setLevel(lightLevel);
 				}
 			}
-			MovingBlock ls = new MovingBlock(helmAnchor.getLocation(), offset, lightData, Material.LIGHT);
+			MovingBlock ls = new MovingBlock(helmAnchor.getLocation(), offset, lightData, Material.LIGHT, shipYawAtAssemble);
 			shipLights.add(ls);
 		}
 		return true;

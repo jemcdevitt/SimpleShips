@@ -1382,7 +1382,8 @@ public class Ship {
 		BoundingBox largerBox = shipBounds.clone().expand(1.0);
 		Vector3i blockLoc = new Vector3i();
 		Quaternionf inverseShipRotation = new Quaternionf().rotateY((float)Math.toRadians(-shipYawAtAssemble));
-		
+
+		LOG(0,"fae: Looking for entities in box %s ", largerBox);
 		for(Entity entity : anchor.getWorld().getNearbyEntities(largerBox)) {
 			Location eloc = entity.getLocation().clone();
 			if(!largerBox.contains(eloc.getX(), eloc.getY(), eloc.getZ()))
@@ -1417,8 +1418,9 @@ public class Ship {
 						captureParrotPerch(cd, anchor, shipYawAtAssemble);
 						continue;
 					}
-					
 				}
+				interactions.add(new InteractionHandle(inter, anchor, shipYawAtAssemble));
+				continue;
 			}
 			if( entity instanceof ArmorStand stand) {
 				if(isHelmStand(stand) ) {
@@ -1454,13 +1456,6 @@ public class Ship {
 					itemFrames.add(new ItemFrameHandle(anchor, eloc, worldOffset, frame));
 					frame.remove();
 				}
-			} else if( entity instanceof Interaction interaction ) {
-				//used by some decoration data packs
-				CompositeDisplay cd = CompositeDisplay.reconstituteFromInteraction(Constants.ENTITY_PAD_ITEM_TYPE, interaction);
-				if( cd != null )
-					captureEntityPad(cd, anchor, shipYawAtAssemble);
-				else
-					interactions.add(new InteractionHandle(interaction, anchor, shipYawAtAssemble));
 			} else {
 				LOG(0,"Entity is un-supported: %s %s", entity.getType().name(), entity.getName());
 			}

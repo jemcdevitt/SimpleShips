@@ -1,5 +1,9 @@
 # Changelog
 
+## 26.2-1.3
+
+* Cleaned up the assembly that was duplicating the entity pad identification
+
 ## 26.2-1.2
 
 * Light blocks were not being moved correctly, updated MovingBlock to handle the rotation of the ship during movements.

@@ -252,9 +252,9 @@ public class Ship {
 			//this applies speed, adjust as appropriate.  This value provides smooth
 			//movement appears a little faster than a traditional boat.
 			if( movingForward || autoMove )
-				forward.mul(Constants.SHIP_SPEED);
+				forward.mul(SimpleShipsPlugin.configuration.shipSpeed);
 			else if (movingBackward )
-				forward.mul(-Constants.SHIP_REVERSE_SPEED);
+				forward.mul(-SimpleShipsPlugin.configuration.shipReverseSpeed);
 
 			//Minecraft space means I needed to negate the X parameter to get it
 			//right.
@@ -749,9 +749,9 @@ public class Ship {
 				bd.setPersistent(false);
 				bd.setTransformationMatrix(trans);
 				bd.setGravity(false);
-				bd.setInterpolationDuration(Constants.BD_LERP_DURATION);
+				bd.setInterpolationDuration(SimpleShipsPlugin.configuration.lerpDuration);
 				bd.setInterpolationDelay(-1);
-				bd.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
+				bd.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
 			});
 		Constants.markShipComponent(display);
 		MaterializedBlock mb = new MaterializedBlock(display, block.getBlockData(), state, offset, inventoryContents);
@@ -805,11 +805,11 @@ public class Ship {
 					bd.setPersistent(false);
 					bd.setGravity(false);
 					bd.setTransformationMatrix(frameXform);
-					bd.setInterpolationDuration(Constants.BD_LERP_DURATION);
+					bd.setInterpolationDuration(SimpleShipsPlugin.configuration.lerpDuration);
 					bd.setInterpolationDelay(-1);
 					bd.setTeleportDuration(0);
 				});
-			theFrame.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
+			theFrame.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
 			Constants.markShipComponent(theFrame);
 			mb = new MaterializedBlock(theFrame, null, null, ifh.frameOffset, null);
 			shipBlocks.add(mb);
@@ -824,11 +824,11 @@ public class Ship {
 					bd.setPersistent(false);
 					bd.setGravity(false);
 					bd.setTransformationMatrix(backgroundXform);
-					bd.setInterpolationDuration(Constants.BD_LERP_DURATION);
+					bd.setInterpolationDuration(SimpleShipsPlugin.configuration.lerpDuration);
 					bd.setInterpolationDelay(-1);
 					bd.setTeleportDuration(0);
 				});
-			theBackground.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
+			theBackground.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
 			Constants.markShipComponent(theBackground);
 			mb = new MaterializedBlock(theBackground, null, null, ifh.frameOffset, null);
 			shipBlocks.add(mb);
@@ -848,11 +848,11 @@ public class Ship {
 				bd.setPersistent(false);
 				bd.setGravity(false);
 				bd.setTransformationMatrix(itemXform);
-				bd.setInterpolationDuration(Constants.BD_LERP_DURATION);
+				bd.setInterpolationDuration(SimpleShipsPlugin.configuration.lerpDuration);
 				bd.setInterpolationDelay(-1);
 				bd.setTeleportDuration(0);
 			});
-		theContents.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
+		theContents.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
 		Constants.markShipComponent(theContents);
 		mb = new MaterializedBlock(theContents, null, null, ifh.frameOffset, null);
 		shipBlocks.add(mb);
@@ -881,12 +881,12 @@ public class Ship {
 					bd.setPersistent(false);
 					bd.setGravity(false);
 					bd.setTransformationMatrix(frameXform);
-					bd.setInterpolationDuration(Constants.BD_LERP_DURATION);
+					bd.setInterpolationDuration(SimpleShipsPlugin.configuration.lerpDuration);
 					bd.setInterpolationDelay(-1);
 					bd.setTeleportDuration(0);
 				});
 			Constants.markShipComponent(theFrame);
-			theFrame.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
+			theFrame.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
 			mb = new MaterializedBlock(theFrame, null, null, ifh.frameOffset, null);
 			shipBlocks.add(mb);
 				
@@ -902,12 +902,12 @@ public class Ship {
 			 		bd.setPersistent(false);
 			 		bd.setGravity(false);
 			 		bd.setTransformationMatrix(backgroundXform);
-			 		bd.setInterpolationDuration(Constants.BD_LERP_DURATION);
+			 		bd.setInterpolationDuration(SimpleShipsPlugin.configuration.lerpDuration);
 			 		bd.setInterpolationDelay(-1);
 			 		bd.setTeleportDuration(0);
 			 	});
 			Constants.markShipComponent(theBackground);
-			theBackground.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
+			theBackground.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
 			mb = new MaterializedBlock(theBackground, null, null, ifh.frameOffset, null);
 			shipBlocks.add(mb);
 			
@@ -928,11 +928,11 @@ public class Ship {
 				bd.setPersistent(false);
 				bd.setGravity(false);
 				bd.setTransformationMatrix(itemXform);
-				bd.setInterpolationDuration(Constants.BD_LERP_DURATION);
+				bd.setInterpolationDuration(SimpleShipsPlugin.configuration.lerpDuration);
 				bd.setInterpolationDelay(-1);
 				bd.setTeleportDuration(0);
 			});
-		theContents.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
+		theContents.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
 		Constants.markShipComponent(theContents);
 		mb = new MaterializedBlock(theContents, null, null, ifh.frameOffset, null);
 		shipBlocks.add(mb);
@@ -982,11 +982,11 @@ public class Ship {
 				bd.setPersistent(false);
 				bd.setGravity(false);
 				bd.setTransformationMatrix(trans);
-				bd.setInterpolationDuration(Constants.BD_LERP_DURATION);
+				bd.setInterpolationDuration(SimpleShipsPlugin.configuration.lerpDuration);
 				bd.setInterpolationDelay(-1);
 				bd.setTeleportDuration(0);
 			});
-		display.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
+		display.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
 		Constants.markShipComponent(display);
 		MaterializedBlock mb = new MaterializedBlock(display, block.getBlockData(), state==null?null:state.copy(), offset, null);
 		shipBlocks.add(mb);
@@ -1024,12 +1024,12 @@ public class Ship {
 		display.setBlock(displayData);
 		display.setPersistent(false);
 		display.setGravity(false);
-		display.setInterpolationDuration(Constants.BD_LERP_DURATION);
+		display.setInterpolationDuration(SimpleShipsPlugin.configuration.lerpDuration);
 		display.setInterpolationDelay(-1);
 		display.setTeleportDuration(0);
 		display.setTransformationMatrix(rotation);
 
-		display.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
+		display.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
 		Constants.markShipComponent(display);
 		MaterializedBlock mb = new MaterializedBlock(display, block.getBlockData(), state==null?null:state.copy(), offset, null);
 		shipBlocks.add(mb);
@@ -1065,11 +1065,11 @@ public class Ship {
 				bd.setPersistent(false);
 				bd.setGravity(false);
 				bd.setTransformationMatrix(trans);
-				bd.setInterpolationDuration(Constants.BD_LERP_DURATION);
+				bd.setInterpolationDuration(SimpleShipsPlugin.configuration.lerpDuration);
 				bd.setInterpolationDelay(-1);
 				bd.setTeleportDuration(0);
 			});
-		display.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
+		display.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
 		Constants.markShipComponent(display);
 		MaterializedBlock mb = new MaterializedBlock(display, block.getBlockData(), state==null?null:state.copy(), offset, null);
 		shipBlocks.add(mb);
@@ -1095,9 +1095,9 @@ public class Ship {
 				bd.setPersistent(false);
 				bd.setTransformationMatrix(new Matrix4f(trans));
 				bd.setGravity(false);
-				bd.setInterpolationDuration(Constants.BD_LERP_DURATION);
+				bd.setInterpolationDuration(SimpleShipsPlugin.configuration.lerpDuration);
 				bd.setInterpolationDelay(-1);
-				bd.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
+				bd.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
 			});
 		Constants.markShipComponent(display);
 		MaterializedBlock mb = new MaterializedBlock(display, block.getBlockData(), state ==null?null:state.copy(), offset, inventoryContents);
@@ -1150,9 +1150,9 @@ public class Ship {
 					itemDisplay.setGravity(false);
 					itemDisplay.setItemDisplayTransform(ItemDisplay.ItemDisplayTransform.FIXED);
 					itemDisplay.setTransformationMatrix(new Matrix4f(xt));
-					itemDisplay.setInterpolationDuration(Constants.BD_LERP_DURATION);
+					itemDisplay.setInterpolationDuration(SimpleShipsPlugin.configuration.lerpDuration);
 					itemDisplay.setInterpolationDelay(-1);
-					itemDisplay.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
+					itemDisplay.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
 					Constants.markShipComponent(itemDisplay);
 					mb = new MaterializedBlock(itemDisplay, null, null, offset, null);
 					shipBlocks.add(mb);
@@ -1202,11 +1202,11 @@ public class Ship {
 				bd.setPersistent(false);
 				bd.setGravity(false);
 				bd.setTransformationMatrix(trans);
-				bd.setInterpolationDuration(Constants.BD_LERP_DURATION);
+				bd.setInterpolationDuration(SimpleShipsPlugin.configuration.lerpDuration);
 				bd.setInterpolationDelay(-1);
 				bd.setTeleportDuration(0);
 			});
-		display.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
+		display.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
 		Constants.markShipComponent(display);
 		MaterializedBlock mb = new MaterializedBlock(display, block.getBlockData(), state==null?null:state.copy(), offset, null);
 		shipBlocks.add(mb);
@@ -1231,12 +1231,12 @@ public class Ship {
 				bd.setPersistent(false);
 				bd.setGravity(false);
 				bd.setTransformationMatrix(UtilFuncs.createCustomTransform(offset, facing, shipYaw, scale, null));
-				bd.setInterpolationDuration(Constants.BD_LERP_DURATION);
+				bd.setInterpolationDuration(SimpleShipsPlugin.configuration.lerpDuration);
 				bd.setInterpolationDelay(-1);
 				bd.setTeleportDuration(0);
 			});
 		Constants.markShipComponent(display);
-		display.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
+		display.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
 		MaterializedBlock mb = new MaterializedBlock(display, block.getBlockData(), state==null?null:state.copy(), offset, inventoryContents);
 
 		shipBlocks.add(mb);

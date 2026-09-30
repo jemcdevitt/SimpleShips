@@ -19,6 +19,7 @@ import org.bukkit.World;
 import org.bukkit.block.Sign;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -74,7 +75,7 @@ public class SimpleShipsPlugin extends JavaPlugin {
 			public void run() {
 				SimpleShipsPlugin.this.updateShips();
 			}
-		}.runTaskTimer(this, 0, Constants.UPDATE_TICKS);
+		}.runTaskTimer(this, 0, configuration.updateTicks);
 		
 		LOG(0,"Simple Ships  plugin startup");
 	}
@@ -253,6 +254,15 @@ public class SimpleShipsPlugin extends JavaPlugin {
 			configuration.maxXWidth = cfg.getConfigurationSection("ship-size").getInt("max-ship-x-width", Configuration.MAX_SHIP_X_WIDTH_DEFAULT);
 			configuration.maxZWidth = cfg.getConfigurationSection("ship-size").getInt("max-ship-z-width", Configuration.MAX_SHIP_Z_WIDTH_DEFAULT);
 			configuration.maxHeight = cfg.getConfigurationSection("ship-size").getInt("max-ship-height", Configuration.MAX_SHIP_HEIGHT_DEFAULT);
+
+			ConfigurationSection moveSettings = cfg.getConfigurationSection("move-settings");
+			if( moveSettings != null ) {
+				configuration.shipSpeed = (float)moveSettings.getDouble("ship-speed", Configuration.SHIP_SPEED_DEFAULT);
+				configuration.shipReverseSpeed = (float)moveSettings.getDouble("ship-reverse-speed", Configuration.SHIP_REVERSE_SPEED_DEFAULT);
+				configuration.updateTicks = moveSettings.getInt("update-ticks", Configuration.UPDATE_TICKS_DEFAULT);
+				configuration.teleportDuration = moveSettings.getInt("teleport-duration", Configuration.TELEPORT_DURATION_DEFAULT);
+				configuration.lerpDuration = moveSettings.getInt("lerp-duration", Configuration.LERP_DURATION_DEFAULT);
+			}
 			BlockSupport.initAllowedBlocksFromConfig(cfg);
 		}	
 		configuration.showInfo(logger);

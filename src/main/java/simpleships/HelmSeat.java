@@ -48,7 +48,7 @@ public class HelmSeat {
 				entity.setPersistent(true);
 				entity.setTransformationMatrix(new Matrix4f(transform));
 				entity.setGravity(false);
-				entity.setInterpolationDuration(Constants.BD_LERP_DURATION);
+				entity.setInterpolationDuration(SimpleShipsPlugin.configuration.lerpDuration);
 				entity.setInterpolationDelay(-1);
 				entity.setTeleportDuration(0);
 			});
@@ -66,7 +66,7 @@ public class HelmSeat {
 				entity.setPersistent(true);
 				entity.setTransformationMatrix(new Matrix4f(transform));
 				entity.setGravity(false);
-				entity.setInterpolationDuration(Constants.BD_LERP_DURATION);
+				entity.setInterpolationDuration(SimpleShipsPlugin.configuration.lerpDuration);
 				entity.setInterpolationDelay(-1);
 				entity.setTeleportDuration(0);
 			});
@@ -76,8 +76,8 @@ public class HelmSeat {
 		post.getPersistentDataContainer().set(Constants.ITEM_TYPE_KEY, PersistentDataType.STRING, Constants.SHIP_HELM_POST_TYPE);
 		post.getPersistentDataContainer().set(Constants.SHIP_HELM_ID_KEY, PersistentDataType.STRING, helmId);
 		
-		seat.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
-		post.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
+		seat.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
+		post.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
 
 	}
 
@@ -96,8 +96,8 @@ public class HelmSeat {
 			return null;
 		}
 		
-		seat.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
-		post.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
+		seat.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
+		post.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
 
 		return new HelmSeat(seat, post);
 	}

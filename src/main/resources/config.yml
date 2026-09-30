@@ -2,6 +2,13 @@
 
 debug: false
 
+move-settings:
+  ship-speed:         0.25
+  ship-reverse-speed: 0.125
+  update-ticks:       1
+  teleport-duration:  3
+  lerp-duration:      0
+
 #this defines the max ship parameters
 #A value of -1 indicates no limit
 ship-size:

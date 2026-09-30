@@ -14,11 +14,11 @@ import org.bukkit.persistence.PersistentDataType;
 
 public class Constants {
 	static public final float ONE_64 = 1.0f/64.0f;
-	static public final int BD_TELEPORT_DURATION  = 3;
-	static public final int BD_LERP_DURATION      = 0;
-	static public final int UPDATE_TICKS          = 1;
-	static public final float SHIP_SPEED          = 0.25f;
-	static public final float SHIP_REVERSE_SPEED  = 0.125f;
+//	static public final int BD_TELEPORT_DURATION  = 3;
+//	static public final int BD_LERP_DURATION      = 0;
+//	static public final int UPDATE_TICKS          = 1;
+//	static public final float SHIP_SPEED          = 0.25f;
+//	static public final float SHIP_REVERSE_SPEED  = 0.125f;
 	
 	static public final String NAME_SPACE = "simpleships";
 	

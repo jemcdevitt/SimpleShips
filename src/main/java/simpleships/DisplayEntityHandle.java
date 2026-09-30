@@ -34,9 +34,9 @@ public class DisplayEntityHandle {
 		this.teleportDuration = displayEntity.getTeleportDuration();
 
 		//to ensure smooth movements
-		displayEntity.setInterpolationDuration(Constants.BD_LERP_DURATION);
+		displayEntity.setInterpolationDuration(SimpleShipsPlugin.configuration.lerpDuration);
 		displayEntity.setInterpolationDelay(-1);
-		displayEntity.setTeleportDuration(Constants.BD_TELEPORT_DURATION);
+		displayEntity.setTeleportDuration(SimpleShipsPlugin.configuration.teleportDuration);
 		
 		
 		this.shipYawAtAssemble = shipYawAtAssemble;

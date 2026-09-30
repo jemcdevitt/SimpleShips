@@ -1,5 +1,9 @@
 # Changelog
 
+## 26.2-1.4
+
+* Moved speed settings into the config file for better tuning
+
 ## 26.2-1.3
 
 * Cleaned up the assembly that was duplicating the entity pad identification
